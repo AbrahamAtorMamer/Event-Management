@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add Events";
+}
+
+@section styles {
+    <!-- Include any additional styles specific to the Add Event view -->
+    <link rel="stylesheet" href="~/Content/add-venue.css">
+}
+
+@section scripts {
+    <script>
+        $(window).load(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+            $('.gallery .info').touchTouch();
+        });
+
+        $(document).ready(function () {
+            $(".shuffle-me").shuffleImages({
+                target: ".images > img"
+            });
+        });
+    </script>
+    <script src="~/Scripts/add-venues.js"></script>
+}
+
+@section body {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <div class="main">
+
+            <main>
+                @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <label for="event-name">Event Name:</label>
+                    <input type="text" id="event-name" name="event-name" required>
+
+                    <label for="event-image">Upload Event Image:</label>
+                    <input type="file" id="event-image" name="event-image">
+                    <label for="event-name">Location:</label>
+                    <input type="text" id="event-name" name="event-name" required>
+                    <label for="event-name">Date:</label>
+                    <input type="text" id="event-name" name="event-name" required>
+
+                    <button type="submit">Add Event</button>
+                }
+                <div id="error-container" class="error"></div>
+            </main>
+            <a href="#" id="toTop" class="fa fa-chevron-up"></a>
+        </div>
+
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+    
+}

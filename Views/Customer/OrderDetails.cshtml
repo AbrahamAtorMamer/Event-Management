@@ -1,0 +1,49 @@
+﻿@model Event_Mangement.Models.AddVenue
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+@section pageTitle {
+    <title>Order View</title>
+}
+
+@section bodyContent {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="container">
+            <h2 class="heading-agileinfo"><span>Order Details</span></h2>
+            
+            <div class="venue-details">
+                <h1></h1>
+                <h3>@Model.VenueName</h3>
+                <p>Location: @Model.LocationAddress</p>
+                <p>Capacity: @Model.Capacity guests</p>
+                <p>Cost:   $ @Model.Cost</p>
+
+                <!-- Add Pay Now button and form -->
+                <form id="paymentForm" action="@Url.Action("ProcessPayment", "Customer")" method="post">
+                    @Html.Hidden("VenueName", Model.VenueName)
+                    @Html.Hidden("LocationAddress", Model.LocationAddress)
+                    @Html.Hidden("Capacity", Model.Capacity)
+                    @Html.Hidden("Cost", Model.Cost)
+
+                    <input type="submit" value="Pay Now" />
+                </form>
+
+            </div>
+
+            
+            </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+}

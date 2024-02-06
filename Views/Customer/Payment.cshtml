@@ -1,0 +1,132 @@
+﻿
+@model Event_Mangement.Models.Payment
+
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+@section pageTitle {
+    <title>Payment Page</title>
+}
+
+@section bodyContent {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="container">
+            <h1>Payment Details</h1>
+
+            <div>
+                <label>Username:</label>
+                @Html.TextBoxFor(model => model.UserName, new { @readonly = "readonly" })
+            </div>
+            <div>
+                <label>Event Name:</label>
+                @Html.TextBoxFor(model => model.EventName, new { @readonly = "readonly" })
+            </div>
+            <div>
+                <label>Venue Name:</label>
+                @Html.TextBoxFor(model => model.VenueName, new { @readonly = "readonly" })
+            </div>
+            <div>
+                <label>Cost:</label>
+                @Html.TextBoxFor(model => model.Cost, new { @readonly = "readonly" })
+            </div>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <div id="card-number"></div>
+                </div>
+                <div class="form-group">
+                    <label for="card-holder">Cardholder Name</label>
+                    <input type="text" id="card-holder" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Expiry Date</label>
+                    <div id="card-expiry"></div>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <div id="card-cvv"></div>
+                </div>
+                <button type="submit" id="pay-now-button">Pay Now</button>
+                <button type="button" id="cancel-button">Cancel</button>
+            </form>
+        </div>
+        <div id="error-message" class="error-message"></div>
+        <div id="success-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Payment Successful</h2>
+                <p>Your payment has been successfully processed.</p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe("pk_test_51OJz1nSECvCDJkxtTPJxmcBFVURo0ivBk47lJzGGlrXgSMs8eEFaeVtcGfRYIwEZa0jaXCsVKOrq4BVGoOxqrPu700bEPiwN7L");
+        var elements = stripe.elements();
+
+        // Create an instance of the card Element
+        var card = elements.create('card');
+
+        // Add an instance of the card Element into the `card-number` div
+        card.mount('#card-number');
+
+        // Add an instance of the card Element into other divs if needed
+        elements.create('cardExpiry').mount('#card-expiry');
+        elements.create('cardCvc').mount('#card-cvv');
+
+        var paymentForm = document.getElementById('payment-form');
+        var errorMessage = document.getElementById('error-message');
+        var successModal = document.getElementById('success-modal');
+
+        paymentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    // Display error message
+                    errorMessage.textContent = result.error.message;
+                } else {
+                    // Clear any previous error messages
+                    errorMessage.textContent = '';
+
+                    // Set the Stripe token in a hidden field
+                    var hiddenTokenField = document.createElement('input');
+                    hiddenTokenField.type = 'hidden';
+                    hiddenTokenField.name = 'StripeToken';
+                    hiddenTokenField.value = result.token.id;
+                    paymentForm.appendChild(hiddenTokenField);
+
+                    // Submit the form
+                    paymentForm.submit();
+                }
+            });
+        });
+
+        // Modal handling
+        var closeModalButton = document.querySelector('.close-button');
+        var successModalOverlay = document.querySelector('#success-modal');
+
+        closeModalButton.addEventListener('click', function () {
+            successModalOverlay.style.display = 'none';
+        });
+
+        // Handle the cancellation button if needed
+        var cancelButton = document.getElementById('cancel-button');
+        cancelButton.addEventListener('click', function () {
+            // Add logic for cancellation
+        });
+    </script>
+}
+

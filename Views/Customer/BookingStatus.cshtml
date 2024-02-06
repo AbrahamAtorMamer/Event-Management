@@ -1,0 +1,84 @@
+﻿
+@model List<Event_Mangement.Models.Booking>
+
+@{
+    ViewBag.Title = "BookingStatus";
+}
+
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+@section body{
+
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="main">
+            <!-- Header section -->
+            <!-- Content section -->
+            <div class="container">
+                <h1>Bookings</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Event Name</th>
+                            <th>Venue Name</th>
+                            <th>Cost</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example data row -->
+                        @foreach (var booking in Model)
+                        {
+                            <tr>
+                                <td>@booking.BookingId</td>
+                                <td>@booking.UserName</td>
+                                <td>@booking.EventName</td>
+                                <td>@booking.VenueName</td>
+                                <td>@booking.Cost</td>
+                                <td>@booking.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+
+
+    <script>
+        // JavaScript code for handling button clicks (e.g., approve and cancel actions)
+        $(document).ready(function () {
+            // Example event handler for the Approve button
+            $('.approve-btn').click(function () {
+                // Add your code for the approve action here
+                alert('Booking Approved');
+            });
+
+            // Example event handler for the Cancel button
+            $('.cancel-btn').click(function () {
+                // Add your code for the cancel action here
+                alert('Booking Canceled');
+            });
+        });
+    </script>
+}
+
+
+

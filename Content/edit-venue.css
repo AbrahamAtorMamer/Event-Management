@@ -1,0 +1,32 @@
+
+.edit-venue {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-venue label {
+    font-weight: bold;
+}
+
+.edit-venue input[type="text"],
+.edit-venue input[type="number"],
+.edit-venue textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 97%;
+    margin-bottom: 10px;
+}
+
+.edit-venue button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+

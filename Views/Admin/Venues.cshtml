@@ -1,0 +1,78 @@
+﻿@model List<Event_Mangement.Models.AddVenue>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Venues";
+}
+
+@section styles {
+    <!-- Include any additional styles specific to the Venues view -->
+
+}
+
+@section scripts {
+    <script>
+        $(window).load(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+            $('.gallery .info').touchTouch();
+        });
+
+        $(document).ready(function () {
+            $(".shuffle-me").shuffleImages({
+                target: ".images > img"
+            });
+        });
+    </script>
+}
+
+@section body {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="main">
+            <div class="container">
+                <!--<h1 class="heading-agileinfo"><span>Event Management</span></h1>-->
+                <h2 class="heading-agileinfo"><span>Mastering Memorable Moments</span></h2>
+
+                @foreach (var venue in Model)
+                {
+                    <div class="popular-grids">
+                        <div id="venue-@venue.VenueId" class="col-md-4 popular-grid">
+
+                            <div class="popular-text">
+                                <h5><a href="#" data-toggle="modal" data-target="#myModal">@venue.VenueName</a></h5>
+                                <img src="@venue.VenueImage" class="img-responsive" alt="" />
+                                <div class="detail-bottom">
+                                    <ul>
+                                        <li><i aria-hidden="true"></i>@venue.Capacity guests</li>
+                                        <li><i class="fa fa-map-marker" aria-hidden="true"></i>@venue.LocationAddress</li>
+                                    </ul>
+                                    <ul>
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>Cost: @venue.Cost</li>
+
+                                    </ul>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <a href="#" id="toTop" class="fa fa-chevron-up"></a>
+        </div>
+
+
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+}
+

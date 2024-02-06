@@ -1,0 +1,81 @@
+﻿
+@model Event_Mangement.Models.User
+
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="main">
+            <!-- User details section -->
+            <section class="user-details">
+                <div class="container">
+                    <div class="user-details-content">
+                        <h2 class="details-title">Personal Details</h2>
+                        <form id="user-details-form">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" value="@Model.Name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" value="@Model.Email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number:</label>
+                                <input type="tel" id="phone" name="phone" value="@Model.Phone" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" id="address" name="address" value="@Model.Address" readonly>
+                            </div>
+                            <div class="form-group form-button">
+                                <button type="button" id="edit-details">Edit</button>
+                                <button type="button" id="save-details" style="display:none;">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Edit button click event
+            $("#edit-details").click(function () {
+                // Enable input fields for editing
+                $("form input").prop("readonly", false);
+                // Toggle visibility of buttons
+                $("#edit-details").hide();
+                $("#save-details").show();
+            });
+
+            // Save button click event
+            $("#save-details").click(function () {
+                // Disable input fields
+                $("form input").prop("readonly", true);
+                // Toggle visibility of buttons
+                $("#edit-details").show();
+                $("#save-details").hide();
+
+                // Add logic to save updated details to the server using AJAX
+                // You may use AJAX to send the updated details to the server for processing
+            });
+        });
+    </script>
+
+

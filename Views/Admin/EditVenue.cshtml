@@ -1,0 +1,81 @@
+﻿@model Event_Mangement.Models.AddVenue
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Venue";
+}
+
+@section styles {
+    <!-- Include any additional styles specific to the Edit Venue view -->
+    <link rel="stylesheet" href="~/Content/edit-venue.css">
+}
+
+@section scripts {
+    <script>
+        $(window).load(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+            $('.gallery .info').touchTouch();
+        });
+
+        $(document).ready(function () {
+            $(".shuffle-me").shuffleImages({
+                target: ".images > img"
+            });
+        });
+    </script>
+    <script src="~/Scripts/edit-venue.js"></script>
+}
+
+
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="main">
+
+            <div class="container">
+                <!--<h1 class="heading-agileinfo"><span>Event Management</span></h1>-->
+                <h2 class="heading-agileinfo"><span>Mastering Memorable Moments</span></h2>
+                <div class="popular-grids">
+                    <section class="edit-venue">
+                        <div class="container">
+                            <h2 class="heading-agileinfo"><span>Edit Venue</span></h2>
+                            @* Assuming you have a ViewModel for the Edit Venue page *@
+
+                            @using (Html.BeginForm("Venues", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.LabelFor(model => model.VenueName)
+                                @Html.TextBoxFor(model => model.VenueName, new { id = "edit-venue-name", required = "required" })
+
+                                @Html.LabelFor(model => model.LocationAddress)
+                                @Html.TextBoxFor(model => model.LocationAddress, new { id = "edit-location-address", required = "required" })
+
+                                @Html.LabelFor(model => model.Capacity)
+                                @Html.TextBoxFor(model => model.Capacity, new { id = "edit-capacity", required = "required", type = "number" })
+
+                                @Html.LabelFor(model => model.Cost)
+                                @Html.TextBoxFor(model => model.Cost, new { id = "edit-cost", required = "required", type = "number" })
+
+                                @Html.LabelFor(model => model.VenueImage)
+                                @Html.TextBoxFor(model => model.VenueImage, new { id = "edit-venue-image", type = "file" })
+
+                                <button type="submit">Save Changes</button>
+                            }
+                        </div>
+                    </section>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+

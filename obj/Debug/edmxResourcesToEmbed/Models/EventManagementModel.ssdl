@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AddEvents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventName" Type="nvarchar" MaxLength="100" />
+    <Property Name="EventImage" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="AddVenue">
+    <Key>
+      <PropertyRef Name="VenueId" />
+    </Key>
+    <Property Name="VenueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VenueName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar" MaxLength="240" />
+    <Property Name="LocationAddress" Type="nvarchar" MaxLength="240" />
+    <Property Name="Capacity" Type="int" />
+    <Property Name="VenueImage" Type="varbinary(max)" />
+    <Property Name="EventId" Type="int" />
+  </EntityType>
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="BookingId" />
+    </Key>
+    <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="240" />
+    <Property Name="EventName" Type="nvarchar" MaxLength="240" />
+    <Property Name="VenueName" Type="nvarchar" MaxLength="240" />
+    <Property Name="Cost" Type="int" />
+    <Property Name="VenueId" Type="int" />
+    <Property Name="EventId" Type="int" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventName" Type="nvarchar" MaxLength="240" />
+    <Property Name="VenueName" Type="nvarchar" MaxLength="240" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Cost" Type="int" />
+    <Property Name="VenueId" Type="int" />
+    <Property Name="EventId" Type="int" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="70" />
+  </EntityType>
+  <Association Name="Fk_EventVenue">
+    <End Role="AddEvents" Type="Self.AddEvents" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AddVenue" Type="Self.AddVenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddEvents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AddVenue">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBooking_1">
+    <End Role="AddVenue" Type="Self.AddVenue" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddVenue">
+        <PropertyRef Name="VenueId" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBooking_2">
+    <End Role="AddEvents" Type="Self.AddEvents" Multiplicity="0..1" />
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddEvents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBooking_3">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBookingPayment_1">
+    <End Role="AddVenue" Type="Self.AddVenue" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddVenue">
+        <PropertyRef Name="VenueId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="VenueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBookingPayment_2">
+    <End Role="AddEvents" Type="Self.AddEvents" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddEvents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_VenueBookingPayment_3">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventManagementModelStoreContainer">
+    <EntitySet Name="AddEvents" EntityType="Self.AddEvents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AddVenue" EntityType="Self.AddVenue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Fk_EventVenue" Association="Self.Fk_EventVenue">
+      <End Role="AddEvents" EntitySet="AddEvents" />
+      <End Role="AddVenue" EntitySet="AddVenue" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBooking_1" Association="Self.Fk_VenueBooking_1">
+      <End Role="AddVenue" EntitySet="AddVenue" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBooking_2" Association="Self.Fk_VenueBooking_2">
+      <End Role="AddEvents" EntitySet="AddEvents" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBooking_3" Association="Self.Fk_VenueBooking_3">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBookingPayment_1" Association="Self.Fk_VenueBookingPayment_1">
+      <End Role="AddVenue" EntitySet="AddVenue" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBookingPayment_2" Association="Self.Fk_VenueBookingPayment_2">
+      <End Role="AddEvents" EntitySet="AddEvents" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_VenueBookingPayment_3" Association="Self.Fk_VenueBookingPayment_3">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,89 @@
+﻿
+@model List<Event_Mangement.Models.Booking>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Bookings Page";
+}
+
+@section styles {
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+}
+
+@section scripts {
+    <!-- Include Bootstrap JavaScript and any additional scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript code for handling button clicks (e.g., approve and cancel actions)
+        $(document).ready(function () {
+            // Example event handler for the Approve button
+            $('.approve-btn').click(function () {
+                // Add your code for the approve action here
+                alert('Booking Approved');
+            });
+
+            // Example event handler for the Cancel button
+            $('.cancel-btn').click(function () {
+                // Add your code for the cancel action here
+                alert('Booking Canceled');
+            });
+        });
+    </script>
+}
+
+@section body {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <div class="main">
+            <header>
+                <!-- Your existing header code -->
+            </header>
+            <h1>Bookings</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Name</th>
+                        <th>Event Name</th>
+                        <th>Venue Name</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Use Razor syntax to loop through your model or controller data -->
+                    @foreach (var booking in Model)
+                    {
+                        <tr>
+                            <td>@booking.BookingId</td>
+                            <td>@booking.Name</td>
+                            <td>@booking.EventName</td>
+                            <td>@booking.VenueName</td>
+                            <td>@booking.Cost</td>
+                            <td>
+                                <button class="btn btn-success approve-btn">Approve</button>
+                                <button class="btn btn-danger cancel-btn">Cancel</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+
+}

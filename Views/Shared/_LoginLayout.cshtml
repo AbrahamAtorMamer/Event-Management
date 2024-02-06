@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+
+    <!-- Include your common CSS files here -->
+    
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/ContentAuth/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/ContentAuth/css/style.css">
+
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="main">
+        @RenderBody()
+    </div>
+
+    <!-- Include your common JavaScript files here -->
+    <script src="~/ScriptsAuth/jquery.min.js"></script>
+    <script src="~/ScriptsAuth/main.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

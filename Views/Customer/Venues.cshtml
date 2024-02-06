@@ -1,0 +1,68 @@
+﻿
+@model List<Event_Mangement.Models.AddVenue>
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+@section pageTitle {
+    <title>Venues</title>
+}
+
+@section bodyContent {
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="container">
+            <h2 class="heading-agileinfo"><span>Mastering Memorable Moments</span></h2>
+
+            @foreach (var venue in Model)
+            {
+                <div class="popular-grids">
+                    <div class="col-md-4 popular-grid">
+                        <div class="popular-text">
+                            <h5><a href="#" data-toggle="modal" data-target="#myModal2">@venue.VenueName</a></h5>
+                            <div class="detail-bottom">
+                                <img src="@venue.VenueImage" alt="">
+                            </div>
+                            <div class="detail-bottom">
+                                <ul>
+                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>@venue.LocationAddress</li>
+                                    <li><i aria-hidden="true"></i>@venue.Capacity guests</li>
+
+                                </ul>
+                                <ul>
+                                    <li><i aria-hidden="true"></i>Cost: @venue.Cost</li>
+                                </ul>
+                                <h5>
+                                    @using (Html.BeginForm("SubmitBooking", "Customer"))
+                                    {
+                                        @Html.Hidden("eventId", venue.EventId)
+                                        @Html.Hidden("venueId", venue.VenueId)
+                                        <input type="submit" value="Book Now" />
+                                    }
+                                </h5>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                
+                <div class="clearfix"></div>
+            </div>
+       
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </center>
+}
